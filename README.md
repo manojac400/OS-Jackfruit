@@ -198,6 +198,7 @@ The Linux CFS effectively enforces priority differences through the weight syste
 ## Screenshots
 
 *(Refer to attached screenshot files)*
+OS_JACKFRUIT_ss.pdf
 
 1. **Multi-container supervision** - Two containers running under one supervisor
 2. **Metadata tracking** - Output of `ps` command showing container metadata
