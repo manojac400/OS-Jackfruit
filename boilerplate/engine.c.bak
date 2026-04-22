@@ -356,28 +356,10 @@ int child_fn(void *arg)
     }
     close(config->log_write_fd);
     
-    char *argv[4];
-    char cmd_copy[CHILD_COMMAND_LEN];
-    strncpy(cmd_copy, config->command, CHILD_COMMAND_LEN - 1);
-    cmd_copy[CHILD_COMMAND_LEN - 1] = 0;
-    
-    argv[0] = strtok(cmd_copy, " ");
-    argv[1] = strtok(NULL, " ");
-    argv[2] = strtok(NULL, " ");
-    argv[3] = NULL;
-    
-    if (argv[0] == NULL) {
-        fprintf(stderr, "No command specified\n");
-        return 1;
-    }
-    
+    char *argv[] = {config->command, NULL};
     char *envp[] = {"PATH=/bin:/sbin:/usr/bin:/usr/sbin", "HOME=/", "TERM=linux", NULL};
     
-    execve(argv[0], argv, envp);
-    
-    char *sh_argv[] = {"/bin/sh", "-c", config->command, NULL};
-    execve("/bin/sh", sh_argv, envp);
-    
+    execve(config->command, argv, envp);
     perror("execve");
     return 1;
 }
